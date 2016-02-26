@@ -9,7 +9,7 @@ Console Reporter for Jasmine, that outputs the detailed test results to the cons
 > Author: Onur Yıldırım (onury) © 2016  
 > Licensed under the MIT License.
 
-![Example Screenshot](https://raw.github.com/onury/asmine-console-reporter/master/screenshots/verbose-report.jpg)
+![Example Screenshot](https://raw.github.com/onury/jasmine-console-reporter/master/screenshots/verbose-report.jpg)
 
 ## Installation
 
