@@ -4,10 +4,12 @@
 ![dependencies](https://david-dm.org/onury/jasmine-console-reporter.svg)
 ![license](http://img.shields.io/npm/l/jasmine-console-reporter.svg)
 
-Console Reporter for Jasmine, that outputs the detailed test results to the console, with colors and other options. This is the default reporter of [grunt-jasmine-nodejs](https://github.com/onury/grunt-jasmine-nodejs).
+Console Reporter for Jasmine. Outputs detailed test results to the console, with beautiful layout and colors. This is the default reporter of [grunt-jasmine-nodejs][grunt-jn].
 
 > Author: Onur Yıldırım (onury) © 2016  
 > Licensed under the MIT License.
+
+Example output from [grunt-jasmine-nodejs][grunt-jn].
 
 ![Example Screenshot](https://raw.github.com/onury/jasmine-console-reporter/master/screenshots/verbose-report.jpg)
 
@@ -36,6 +38,12 @@ Specifies whether to enable the activity indicator animation that outputs the cu
 
 
 ## Change-Log
+
+- **v1.2.2** (2016-02-27)
+    + Added grunt, jasmine tests, etc...
+    + Moved helper classes and utils to separate modules.
+
+    ---
 
 - **v1.2.0** (2016-02-26)
     + Moved the reporter to its own repo.
@@ -114,3 +122,7 @@ Specifies whether to enable the activity indicator animation that outputs the cu
 
 - v0.5.0 (2015-02-07)
     + Initial release.
+
+
+
+[grunt-jn]: https://github.com/onury/grunt-jasmine-nodejs

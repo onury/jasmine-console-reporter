@@ -7,13 +7,10 @@
 module.exports = (function () {
     'use strict';
 
-    // windows returns 'win32' even on 64 bit but we still check for
-    // win64, just in case...
-    var isWindows = process.platform === 'win32'
-        || process.platform === 'win64';
-
-    // Core modules
-    var path = require('path');
+    // Own modules
+    var Timer = require('./lib/timer'),
+        Activity = require('./lib/activity'),
+        utils = require('./lib/utils');
 
     // Dep modules
     var chalk = require('chalk');
@@ -22,177 +19,9 @@ module.exports = (function () {
     //  UTILITY METHODS
     // ---------------------------
 
-    function plural(str, count) {
-        return count === 1 ? str : str + 's';
-    }
-
-    function repeat(string, times) {
-        return new Array(times + 1).join(string);
-    }
-
-    function indent(str, times, indentChar) {
-        indentChar = indentChar || ' ';
-        var i,
-            newArr = [],
-            lines = (str || '').split('\n');
-        for (i = 0; i < lines.length; i++) {
-            newArr.push(repeat(indentChar, times) + lines[i]);
-        }
-        return newArr.join('\n');
-    }
-
-    function symbol(name) {
-        switch (name) {
-            case 'dot':
-                return isWindows ? '.' : '∙';
-            case 'info':
-                return isWindows ? 'i' : 'ℹ';
-            case 'success':
-                return isWindows ? '√' : '✔'; // ✓
-            case 'warning':
-                return isWindows ? '‼' : '⚠';
-            case 'error':
-                return isWindows ? '×' : '✖'; // ✕
-            case 'disabled':
-                return isWindows ? '!' : '•';
-            default:
-                return '';
-        }
-    }
-
     function log() {
         process.stdout.write.apply(process.stdout, arguments);
     }
-
-    function reStack(stack, cleanLevel, style) {
-        if (!stack) return stack;
-        stack = String(stack).split('\n');
-        // store the first line (error message)
-        var first = stack[0] || '';
-        // remove the first from the stack to filter
-        stack = stack.slice(1);
-
-        if (cleanLevel > 0) {
-            var cleanPath = cleanLevel >= 2
-                ? 'node_modules'
-                : path.join('node_modules', 'jasmine-core');
-            cleanPath = path.sep + cleanPath + path.sep;
-            // remove stack lines with jasmine-core path.
-            stack = stack.filter(function (stackLine) {
-                var pathCheck = stackLine.indexOf(cleanPath) === -1,
-                    sepCheck = cleanLevel >= 3
-                        ? stackLine.indexOf(path.sep) > -1
-                        : true;
-                return (pathCheck && sepCheck);
-            });
-        }
-
-        // make the file paths clickable by removing the wrapping parenths.
-        stack = stack.map(function (stackLine) {
-            stackLine = stackLine.replace(/\(([^\(]+?)\)/g, '$1'); // '( $1 )'
-            if (style) {
-                stackLine = stackLine.replace(/([^:\/\\ ]+):(\d+):(\d+)/, function (m, $1, $2, $3) {
-                    return style.yellow($1) + ':' + style.white($2) + ':' + style.white($3);
-                });
-            }
-            return stackLine;
-        });
-        // add back the first line and rest of stack
-        if (style) first = style.red(first);
-        return first + '\n' + stack.join('\n');
-    }
-
-    function extend(defaults, object) {
-        object = object || {};
-        var key;
-        for (key in defaults) {
-            if (defaults.hasOwnProperty(key)
-                    && object[key] === undefined) {
-                object[key] = defaults[key];
-            }
-        }
-        return object;
-    }
-
-    // Normalizes and tries to get a numeric value. This is used for options
-    // that support both Boolean and Number values.
-    function optionBoolToNum(value, numTrue, numFalse) {
-        if (typeof value === 'boolean') {
-            return value ? numTrue : numFalse;
-        }
-        return typeof value === 'number' ? value : undefined;
-    }
-
-    // ---------------------------
-    //  CLASS: Timer
-    // ---------------------------
-
-    function Timer() {
-        this._startTime = 0;
-        this._endTime = 0;
-    }
-    Timer.prototype.start = function () {
-        this._startTime = Date.now();
-    };
-    Timer.prototype.stop = function () {
-        this._endTime = Date.now();
-    };
-    Timer.prototype.elapsed = function () {
-        this.stop();
-        var t = (this._endTime - this._startTime) / 1000;
-        return t.toFixed(3);
-    };
-
-    // ---------------------------
-    //  CLASS: Activity
-    // ---------------------------
-
-    // example:
-    // var activity = new Activity(80);
-    // activity.start('* please wait...');
-    // asterisk will be replaced with rotating line animation (\ | / —) on
-    // each interval. For ANSI codes, see:
-    // http://academic.evergreen.edu/projects/biophysics/technotes/program/ansi_esc.htm
-    function Activity(interval) {
-        this._ticks = 0;
-        this._interval = interval || 60;
-        this.running = false;
-    }
-    Activity.prototype.stop = function () {
-        if (this._timer) {
-            clearInterval(this._timer);
-            this._timer = null;
-        }
-        // clear the full title
-        if (this.running) {
-            log('\x1B[u\r\x1B[K');
-        }
-        this.running = false;
-        this._ticks = 0;
-        this._row = null;
-    };
-    function _activityRun() {
-        this._ticks += 1;
-        var rotate = ['\\', '|', '/', '-'],
-            c = rotate[this._ticks % 4],
-            title = this.title ?
-                this.title.replace(/\*/g, c)
-                : c;
-        // move cursor to last saved position, clear line and update activity
-        // title.
-        log('\x1B[u' + title);
-    }
-    Activity.prototype.start = function (title) {
-        var $this = this;
-        $this.stop();
-        $this.title = title;
-        $this.running = true;
-        // save cursor position
-        log('\x1B[s');
-        $this._timer = setInterval(function () {
-            _activityRun.apply($this);
-        }, $this._interval);
-    };
 
     // ---------------------------
     //  CLASS: JasmineConsoleReporter
@@ -202,11 +31,11 @@ module.exports = (function () {
         this.name = 'Jasmine Console Reporter';
 
         options = options || {};
-        options.verbosity = optionBoolToNum(options.verbosity, 4, 0);
-        options.cleanStack = optionBoolToNum(options.cleanStack, 1, 0);
+        options.verbosity = utils.optionBoolToNum(options.verbosity, 4, 0);
+        options.cleanStack = utils.optionBoolToNum(options.cleanStack, 1, 0);
 
         // extend options with defaults
-        options = extend({
+        options = utils.extend({
             colors: true,
             cleanStack: 1, // 0 to 3
             verbosity: 4,  // 0 to 4
@@ -231,7 +60,7 @@ module.exports = (function () {
             timer = new Timer(),
             activity;
         if (options.activity) {
-            activity = new Activity();
+            activity = new Activity(null, log);
         }
 
         var _failedSpecs = [],
@@ -313,7 +142,7 @@ module.exports = (function () {
                 if (!report.list) return;
                 _depth = _depth || 0;
                 var ind = listStyle.indent
-                        ? repeat(_indentChar, _depth * _indentUnit)
+                        ? utils.repeat(_indentChar, _depth * _indentUnit)
                         : '',
                     title = style.cyan(stats.suites.total + ') ' + suite.description);
                 print.line(ind + title);
@@ -324,12 +153,12 @@ module.exports = (function () {
                 _depth = _depth || 0;
                 var title = '',
                     ind = listStyle.indent
-                        ? repeat(_indentChar, (_depth + 1) * _indentUnit)
+                        ? utils.repeat(_indentChar, (_depth + 1) * _indentUnit)
                         : '';
 
                 switch (spec.status) {
                     case 'pending':
-                        title = style.yellow(symbol('warning') + ' ' + spec.description);
+                        title = style.yellow(utils.symbol('warning') + ' ' + spec.description);
                         break;
                     case 'disabled':
                         // we don't print disableds if verbosity < 4
@@ -338,15 +167,15 @@ module.exports = (function () {
                             print.clearLine();
                             return;
                         }
-                        title = style.gray(symbol('disabled') + ' ' + spec.description);
+                        title = style.gray(utils.symbol('disabled') + ' ' + spec.description);
                         break;
                     case 'failed':
                         var fc = spec.failedExpectations.length,
-                            f = ' (' + fc + ' ' + plural('failure', fc) + ')';
-                        title = style.red(symbol('error') + ' ' + spec.description + f);
+                            f = ' (' + fc + ' ' + utils.plural('failure', fc) + ')';
+                        title = style.red(utils.symbol('error') + ' ' + spec.description + f);
                         break;
                     case 'passed':
-                        title = style.green(symbol('success') + ' ' + spec.description);
+                        title = style.green(utils.symbol('success') + ' ' + spec.description);
                         break;
                     default:
                         // unknown status
@@ -384,8 +213,8 @@ module.exports = (function () {
             var i, failedExpectation, stack;
             for (i = 0; i < spec.failedExpectations.length; i++) {
                 failedExpectation = spec.failedExpectations[i];
-                stack = reStack(failedExpectation.stack, options.cleanStack, style);
-                print.line(indent(stack, _indentUnit));
+                stack = utils.reStack(failedExpectation.stack, options.cleanStack, style);
+                print.line(utils.indent(stack, _indentUnit));
             }
             print.newLine();
         }
@@ -397,7 +226,7 @@ module.exports = (function () {
             var pendingReason = spec.pendingReason
                     ? style.yellow('Reason: ' + spec.pendingReason)
                     : style.gray('(No pending reason)');
-            print.line(indent(pendingReason, _indentUnit));
+            print.line(utils.indent(pendingReason, _indentUnit));
             print.newLine();
         }
 
@@ -406,8 +235,8 @@ module.exports = (function () {
             for (i = 0; i < suite.failedExpectations.length; i++) {
                 failedExpectation = suite.failedExpectations[i];
                 print.line(style.red('>> An error was thrown in an afterAll'));
-                stack = reStack(failedExpectation.stack, options.cleanStack, style);
-                print.line(indent(stack, _indentUnit));
+                stack = utils.reStack(failedExpectation.stack, options.cleanStack, style);
+                print.line(utils.indent(stack, _indentUnit));
             }
             print.newLine(2);
         }
@@ -462,7 +291,7 @@ module.exports = (function () {
 
                     print.line('Expects: ' + style.white(stats.expects.total));
                     var fc = stats.expects.failed,
-                        f = ' (' + fc + ' ' + plural('failure', fc) + ')';
+                        f = ' (' + fc + ' ' + utils.plural('failure', fc) + ')';
                     if (fc > 0) {
                         f = style.red(f);
                     }
@@ -472,7 +301,7 @@ module.exports = (function () {
                     print.str(style.yellow('No specs executed.'));
                 }
 
-                print.line(style.gray('Finished in ' + seconds + ' ' + plural('second', seconds)));
+                print.line(style.gray('Finished in ' + seconds + ' ' + utils.plural('second', seconds)));
                 print.newLine(2);
             } else {
                 print.newLine();
@@ -550,7 +379,7 @@ module.exports = (function () {
             // enabled.
             if (options.activity && activity) {
                 var ind = report.list && listStyle.indent
-                        ? repeat(_indentChar, (_depth + 1) * _indentUnit)
+                        ? utils.repeat(_indentChar, (_depth + 1) * _indentUnit)
                         : '',
                     title = ind + '* ' + style.gray(spec.description);
                 activity.start(title);

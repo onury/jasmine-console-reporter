@@ -1,7 +1,7 @@
 {
   "name": "jasmine-console-reporter",
-  "version": "1.2.1",
-  "description": "Console reporter for Jasmine. This is the default reporter of grunt-jasmine-nodejs.",
+  "version": "1.2.2",
+  "description": "Console Reporter for Jasmine. Outputs detailed test results to the console, with beautiful layout and colors. This is the default reporter of grunt-jasmine-nodejs.",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -14,9 +14,15 @@
     "jasmine",
     "console",
     "reporter",
-    "terminal"
+    "report",
+    "terminal",
+    "test",
+    "colorful"
   ],
-  "author": "Onur Yıldırım",
+  "author": {
+    "name": "Onur Yıldırım",
+    "email": "onur@cutepilot.com"
+  },
   "license": "MIT",
   "bugs": {
     "url": "https://github.com/onury/jasmine-console-reporter/issues"
@@ -27,6 +33,8 @@
   },
   "devDependencies": {
     "eslint": "^2.2.0",
-    "eslint-config-xo": "^0.11.0"
+    "eslint-config-xo": "^0.11.0",
+    "grunt": "^0.4.5",
+    "grunt-jasmine-nodejs": "^1.4.3"
   }
 }
