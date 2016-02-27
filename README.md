@@ -19,6 +19,20 @@ Example output from [grunt-jasmine-nodejs][grunt-jn].
 npm install jasmine-console-reporter
 ```
 
+### Usage
+
+```js
+var JasmineConsoleReporter = require('jasmine-console-reporter');
+var reporter = new JasmineConsoleReporter({
+    colors: true,
+    cleanStack: 1,       // (0|false)|(1|true)|2|3
+    verbosity: 4,        // (0|false)|1|2|(3|true)|4
+    listStyle: 'indent', // "flat"|"indent"
+    activity: false
+});
+// pass the initialized reporter to whichever task or host...
+```
+
 ### Options
 
 + **colors** — Type: `Boolean` Default: `true`
