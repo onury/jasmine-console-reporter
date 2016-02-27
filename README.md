@@ -35,7 +35,7 @@ var reporter = new JasmineConsoleReporter({
 
 ### Options
 
-+ **colors** — Type: `Boolean` Default: `true`
++ **colors** — Type: `Boolean` Default: `true`  
 Specifies whether the output should have colored text.
 
 + **cleanStack** — Type: `Number|Boolean` Default: `1`  
