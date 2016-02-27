@@ -1,8 +1,8 @@
 # jasmine-console-reporter
 
-[![version](http://img.shields.io/npm/v/jasmine-console-reporter.svg)](https://www.npmjs.com/package/jasmine-console-reporter)
+[![version](https://img.shields.io/npm/v/jasmine-console-reporter.svg)](https://www.npmjs.com/package/jasmine-console-reporter)
 ![dependencies](https://david-dm.org/onury/jasmine-console-reporter.svg)
-![license](http://img.shields.io/npm/l/jasmine-console-reporter.svg)
+![license](https://img.shields.io/npm/l/jasmine-console-reporter.svg)
 
 Console Reporter for Jasmine. Outputs detailed test results to the console, with beautiful layout and colors. This is the default reporter of [grunt-jasmine-nodejs][grunt-jn].
 
@@ -38,16 +38,16 @@ var reporter = new JasmineConsoleReporter({
 + **colors** — Type: `Boolean` Default: `true`
 Specifies whether the output should have colored text.
 
-+ **cleanStack** — Type: `Number|Boolean` Default: `1`
++ **cleanStack** — Type: `Number|Boolean` Default: `1`  
 Specifies the filter level for the error stacks. Possible integer values: 0 to 3. Set to `1` (or `true`) to only filter out lines with jasmine-core path from stacks. Set to `2` to filter out all `node_modules` paths. Set to `3` to also filter out lines with no file path in it.
 
-+ **verbosity** — Type: `Number|Boolean` Default: `4`
++ **verbosity** — Type: `Number|Boolean` Default: `4`  
 (_alias: `verbose`_) Specifies the verbosity level for the reporter output. Possible integer values: 0 to 4. When a `Boolean` value is passed, `true` defaults to `4` and `false` defaults to `0`. Level 0: reports errors only. Level 1: also displays a summary. Level 2: also reports pending specs. Level 3: additionally displays all suites and specs as a list, except disabled specs. Level 4: also lists disabled specs.
 
-+ **listStyle** — Type: `String` Default: `"indent"`
++ **listStyle** — Type: `String` Default: `"indent"`  
 Indicates the style of suites/specs list output. Possible values: `"flat"` or `"indent"`. Setting this to `"indent"` provides a better view especially when using nested (describe) suites. This option is only effective when verbosity level is set to `3`, `4` or `true`.
 
-+ **activity** — Type: `Boolean` Default: `false`
++ **activity** — Type: `Boolean` Default: `false`  
 Specifies whether to enable the activity indicator animation that outputs the current spec that is being executed. If your tests log extra data to console, this option should be disabled or they might be overwritten.
 
 
