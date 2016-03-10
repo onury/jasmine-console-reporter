@@ -40,7 +40,8 @@ module.exports = (function () {
             cleanStack: 1, // 0 to 3
             verbosity: 4,  // 0 to 4
             activity: false,
-            listStyle: 'indent'
+            listStyle: 'indent',
+            useColorEscapeCodes: false
         }, options);
 
         var report = {
@@ -102,7 +103,13 @@ module.exports = (function () {
 
         function fnStyle(color) {
             return function (str) {
-                return options.colors ? chalk[color](str) : str;
+                if (!options.colors) {
+                    return str;
+                }
+                if (options.useColorEscapeCodes) {
+                    return chalk.styles[color].open + str + chalk.styles[color].close;
+                }
+                return chalk[color](str);
             };
         }
 

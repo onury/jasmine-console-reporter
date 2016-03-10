@@ -6,7 +6,7 @@
 
 Console Reporter for Jasmine. Outputs detailed test results to the console, with beautiful layout and colors. This is the default reporter of [grunt-jasmine-nodejs][grunt-jn].
 
-> Author: Onur Yıldırım (onury) © 2016  
+> Author: Onur Yıldırım (onury) © 2016
 > Licensed under the MIT License.
 
 Example output from [grunt-jasmine-nodejs][grunt-jn].
@@ -28,7 +28,8 @@ var reporter = new JasmineConsoleReporter({
     cleanStack: 1,       // (0|false)|(1|true)|2|3
     verbosity: 4,        // (0|false)|1|2|(3|true)|4
     listStyle: 'indent', // "flat"|"indent"
-    activity: false
+    activity: false,
+    useColorEscapeCodes: false
 });
 // pass the initialized reporter to whichever task or host...
 ```
@@ -50,6 +51,8 @@ Indicates the style of suites/specs list output. Possible values: `"flat"` or `"
 + **activity** — Type: `Boolean` Default: `false`  
 Specifies whether to enable the activity indicator animation that outputs the current spec that is being executed. If your tests log extra data to console, this option should be disabled or they might be overwritten.
 
++ **useColorEscapeCodes** — Type: `Boolean` Default: `false`
+Specifies whether or not to use the [Chalk styles exposed as ANSI escape codes](https://www.npmjs.com/package/chalk#chalkstyles). This option can be useful if, for example, you're running your tests from a sub-process, and the colors aren't showing up. If `options.colors` is `false`, this option has no effect.
 
 ## Change-Log
 
