@@ -1,6 +1,7 @@
 # jasmine-console-reporter
 
 [![version](https://img.shields.io/npm/v/jasmine-console-reporter.svg)](https://www.npmjs.com/package/jasmine-console-reporter)
+[![downloads](http://img.shields.io/npm/dm/jasmine-console-reporter.svg)](https://www.npmjs.com/package/jasmine-console-reporter)
 ![dependencies](https://david-dm.org/onury/jasmine-console-reporter.svg)
 ![license](https://img.shields.io/npm/l/jasmine-console-reporter.svg)
 
