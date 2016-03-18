@@ -33,15 +33,15 @@ module.exports = (function () {
         options = options || {};
         options.verbosity = utils.optionBoolToNum(options.verbosity, 4, 0);
         options.cleanStack = utils.optionBoolToNum(options.cleanStack, 1, 0);
+        options.colors = utils.optionBoolToNum(options.colors, 1, 0);
 
         // extend options with defaults
         options = utils.extend({
-            colors: true,
+            colors: 1,     // 0 to 2
             cleanStack: 1, // 0 to 3
             verbosity: 4,  // 0 to 4
             activity: false,
-            listStyle: 'indent',
-            useColorEscapeCodes: false
+            listStyle: 'indent'
         }, options);
 
         var report = {
@@ -103,13 +103,14 @@ module.exports = (function () {
 
         function fnStyle(color) {
             return function (str) {
-                if (!options.colors) {
-                    return str;
+                switch (options.colors) {
+                    case 2:
+                        return chalk.styles[color].open + str + chalk.styles[color].close;
+                    case 1:
+                        return chalk[color](str);
+                    default:
+                        return str;
                 }
-                if (options.useColorEscapeCodes) {
-                    return chalk.styles[color].open + str + chalk.styles[color].close;
-                }
-                return chalk[color](str);
             };
         }
 

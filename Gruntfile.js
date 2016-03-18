@@ -5,7 +5,7 @@ module.exports = function (grunt) {
 
     var JasmineConsoleReporter = require('./index');
     var reporter = new JasmineConsoleReporter({
-        colors: true,
+        colors: true,        // (0|false)|(1|true)|2
         cleanStack: 1,       // (0|false)|(1|true)|2|3
         verbosity: 4,        // (0|false)|1|2|(3|true)|4
         listStyle: 'indent', // "flat"|"indent"
