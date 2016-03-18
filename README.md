@@ -25,7 +25,7 @@ npm install jasmine-console-reporter
 ```js
 var JasmineConsoleReporter = require('jasmine-console-reporter');
 var reporter = new JasmineConsoleReporter({
-    colors: true,
+    colors: true,        // (0|false)|(1|true)|2
     cleanStack: 1,       // (0|false)|(1|true)|2|3
     verbosity: 4,        // (0|false)|1|2|(3|true)|4
     listStyle: 'indent', // "flat"|"indent"
@@ -36,8 +36,8 @@ var reporter = new JasmineConsoleReporter({
 
 ### Options
 
-+ **colors** — Type: `Boolean` Default: `true`  
-Specifies whether the output should have colored text.
++ **colors** — Type: `Number`|`Boolean` Default: `1`  
+Specifies whether the output should have colored text. Possible integer values: 0 to 2. Set to `1` (or `true`) to enable colors, and `0` (or `false`) to disable colors. Set to `2` to use the [Chalk styles exposed as ANSI escape codes](https://www.npmjs.com/package/chalk#chalkstyles). Option `2` can be useful if, for example, you're running your tests from a sub-process, and the colors aren't showing up.
 
 + **cleanStack** — Type: `Number|Boolean` Default: `1`  
 Specifies the filter level for the error stacks. Possible integer values: 0 to 3. Set to `1` (or `true`) to only filter out lines with jasmine-core path from stacks. Set to `2` to filter out all `node_modules` paths. Set to `3` to also filter out lines with no file path in it.
@@ -50,7 +50,6 @@ Indicates the style of suites/specs list output. Possible values: `"flat"` or `"
 
 + **activity** — Type: `Boolean` Default: `false`  
 Specifies whether to enable the activity indicator animation that outputs the current spec that is being executed. If your tests log extra data to console, this option should be disabled or they might be overwritten.
-
 
 ## Change-Log
 
