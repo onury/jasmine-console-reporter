@@ -1,7 +1,6 @@
 /**
  *  Jasmine Console Reporter
  *  @author   Onur Yıldırım (onur@cutepilot.com)
- *  @version  1.2.0 (2016-02-26)
  *  @license  MIT
  */
 module.exports = (function () {
@@ -218,11 +217,16 @@ module.exports = (function () {
             print.line(style.red(num + ') '));
             var title = spec.fullName.replace(spec.description, ': ' + spec.description);
             print.str(style.cyan(title));
-            var i, failedExpectation, stack;
+            var i, failedExpectation, errInfo;
             for (i = 0; i < spec.failedExpectations.length; i++) {
                 failedExpectation = spec.failedExpectations[i];
-                stack = utils.reStack(failedExpectation.stack, options.cleanStack, style);
-                print.line(utils.indent(stack, _indentUnit));
+                if (failedExpectation.stack) {
+                    errInfo = utils.reStack(failedExpectation.stack, options.cleanStack, style);
+                } else {
+                    errInfo = 'Error: ' + (failedExpectation.message || 'Unknown Error');
+                    errInfo = style.red(errInfo);
+                }
+                print.line(utils.indent(errInfo, _indentUnit));
             }
             print.newLine();
         }

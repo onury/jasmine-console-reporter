@@ -53,6 +53,12 @@ Specifies whether to enable the activity indicator animation that outputs the cu
 
 ## Change-Log
 
+- **v1.2.6** (2016-05-09)
+    + Failed specs that don't have an error stack, would not output a warning message. Fixed.
+    + Updated dependencies to their latest versions.
+
+    ---
+
 - **v1.2.4** (2016-03-18)
     + Improved `colors` option to support ANSI escape codes. (PR [#1](https://github.com/onury/jasmine-console-reporter/pull/1) by [@msrose](https://github.com/msrose))
 
