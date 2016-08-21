@@ -56,7 +56,8 @@
 
     describe('Suite 6 (Level 1)', function () {
         it('Suite 6, Spec 1', function () {
-            expect(true).toEqual(true);
+            // test utils.reStack() method.
+            expect('no newline').toEqual('line with\nnew line');
         });
         xit('Suite 6, Spec 2 (final)', function () {
             expect(true).toEqual(true);
