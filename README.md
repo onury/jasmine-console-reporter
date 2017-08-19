@@ -11,21 +11,21 @@
 
 Console Reporter for Jasmine. Outputs detailed test results to the console, with beautiful layout and colors. This is the default reporter of [grunt-jasmine-nodejs][grunt-jn].
 
-Example output from [grunt-jasmine-nodejs][grunt-jn].
+Example output:
 
 ![Example Screenshot](https://raw.github.com/onury/jasmine-console-reporter/master/screenshots/verbose-report.jpg)
 
 ## Installation
 
 ```shell
-npm install jasmine-console-reporter
+npm install jasmine-console-reporter --save-dev
 ```
 
-### Usage
+## Usage
 
 ```js
-var JasmineConsoleReporter = require('jasmine-console-reporter');
-var reporter = new JasmineConsoleReporter({
+const JasmineConsoleReporter = require('jasmine-console-reporter');
+const reporter = new JasmineConsoleReporter({
     colors: 1,           // (0|false)|(1|true)|2
     cleanStack: 1,       // (0|false)|(1|true)|2|3
     verbosity: 4,        // (0|false)|1|2|(3|true)|4
@@ -51,6 +51,40 @@ Indicates the style of suites/specs list output. Possible values: `"flat"` or `"
 
 + **activity** — Type: `Boolean` Default: `false`  
 Specifies whether to enable the activity indicator animation that outputs the current spec that is being executed. If your tests log extra data to console, this option should be disabled or they might be overwritten.
+
+### Full Example with Jasmine (Node.js)
+
+```js
+#!/usr/bin/env node
+
+// setup Jasmine
+const Jasmine = require('jasmine');
+const jasmine = new Jasmine();
+jasmine.loadConfig({
+    spec_dir: 'test',
+    spec_files: ['**/*[sS]pec.js'],
+    helpers: ['helpers/**/*.js'],
+    random: false,
+    seed: null,
+    stopSpecOnExpectationFailure: false
+});
+jasmine.jasmine.DEFAULT_TIMEOUT_INTERVAL = 15000;
+
+// setup console reporter
+const JasmineConsoleReporter = require('jasmine-console-reporter');
+const reporter = new JasmineConsoleReporter({
+    colors: 1,           // (0|false)|(1|true)|2
+    cleanStack: 1,       // (0|false)|(1|true)|2|3
+    verbosity: 4,        // (0|false)|1|2|(3|true)|4
+    listStyle: 'indent', // "flat"|"indent"
+    activity: false
+});
+
+// initialize and execute
+jasmine.env.clearReporters();
+jasmine.addReporter(reporter);
+jasmine.execute();
+```
 
 ## Change-Log
 
