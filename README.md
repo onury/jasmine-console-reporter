@@ -54,6 +54,12 @@ Specifies whether to enable the activity indicator animation that outputs the cu
 
 ## Change-Log
 
+- **v1.2.8** (2017-08-20)
+    + Updated dependencies to their latest versions.
+    + Minor clean-up.
+
+    ---
+
 - **v1.2.7** (2016-08-21)
     + `cleanStack` option would render the first line as the error message, not respecting messages with `\n` (new-line) in them. Fixed.
     + Updated dev-dependencies.
