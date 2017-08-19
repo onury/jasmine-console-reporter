@@ -89,8 +89,8 @@ jasmine.execute();
 ## Change-Log
 
 - **v1.2.8** (2017-08-20)
-    + Updated dependencies to their latest versions.
-    + Minor clean-up.
+    + Updated Jasmine to latest version.
+    + Project clean-up.
 
     ---
 
