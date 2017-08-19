@@ -10,7 +10,7 @@
             expect(true).toEqual(true);
         });
         xit('Suite 1, Spec 3', function (done) {
-            expect(false).toEqual(true);
+            expect('this should..').toEqual('..fail!');
             done();
             // setTimeout(function () {
             //     expect(1).toEqual(2);
@@ -20,14 +20,14 @@
 
         describe('Suite 2 (Level 2)', function () {
             it('Suite 2, Spec 1 (single)', function () {
-                expect(false).toEqual(true);
+                expect('this should..').toEqual('..fail!');
             });
             xdescribe('Suite 3 (Level 3)', function () {
                 it('Suite 3, Spec 1', function () {
                     expect(true).toEqual(true);
                 });
                 it('Suite 3, Spec 2', function () {
-                    expect(false).toEqual(true);
+                    expect('this should..').toEqual('..fail!');
                 });
             });
             xit('Suite 2, Spec 2 (final)', function () {
