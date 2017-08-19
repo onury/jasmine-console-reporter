@@ -5,7 +5,7 @@
 [![downloads](http://img.shields.io/npm/dm/jasmine-console-reporter.svg)](https://www.npmjs.com/package/jasmine-console-reporter)
 [![dependencies](https://david-dm.org/onury/jasmine-console-reporter.svg)](https://david-dm.org/onury/jasmine-console-reporter)
 [![license](http://img.shields.io/npm/l/jasmine-console-reporter.svg)](https://github.com/onury/jasmine-console-reporter/blob/master/LICENSE)
-[![maintained](https://img.shields.io/maintenance/yes/2017.svg)](https://github.com/onury/jasmine-console-reporter/graphs/punch-card)  
+[![maintained](https://img.shields.io/maintenance/yes/2017.svg)](https://github.com/onury/jasmine-console-reporter/graphs/commit-activity)  
 
 > © 2017, Onur Yıldırım ([@onury](https://github.com/onury)). MIT License.
 
