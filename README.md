@@ -1,14 +1,15 @@
 # jasmine-console-reporter
 
-[![version](https://img.shields.io/npm/v/jasmine-console-reporter.svg)](https://www.npmjs.com/package/jasmine-console-reporter)
+[![npm](http://img.shields.io/npm/v/jasmine-console-reporter.svg)](https://www.npmjs.com/package/jasmine-console-reporter)
+[![release](https://img.shields.io/github/release/onury/jasmine-console-reporter.svg)](https://github.com/onury/jasmine-console-reporter)
 [![downloads](http://img.shields.io/npm/dm/jasmine-console-reporter.svg)](https://www.npmjs.com/package/jasmine-console-reporter)
-![dependencies](https://david-dm.org/onury/jasmine-console-reporter.svg)
-![license](https://img.shields.io/npm/l/jasmine-console-reporter.svg)
+[![dependencies](https://david-dm.org/onury/jasmine-console-reporter.svg)](https://david-dm.org/onury/jasmine-console-reporter)
+[![license](http://img.shields.io/npm/l/jasmine-console-reporter.svg)](https://github.com/onury/jasmine-console-reporter/blob/master/LICENSE)
+[![maintained](https://img.shields.io/maintenance/yes/2017.svg)](https://github.com/onury/jasmine-console-reporter/graphs/punch-card)  
+
+> © 2017, Onur Yıldırım ([@onury](https://github.com/onury)). MIT License.
 
 Console Reporter for Jasmine. Outputs detailed test results to the console, with beautiful layout and colors. This is the default reporter of [grunt-jasmine-nodejs][grunt-jn].
-
-> Author: Onur Yıldırım (onury) © 2016  
-> Licensed under the MIT License.
 
 Example output from [grunt-jasmine-nodejs][grunt-jn].
 
@@ -153,7 +154,6 @@ Specifies whether to enable the activity indicator animation that outputs the cu
 
 - v0.5.0 (2015-02-07)
     + Initial release.
-
 
 
 [grunt-jn]: https://github.com/onury/grunt-jasmine-nodejs
