@@ -11,7 +11,7 @@
 #### **v1.2.8** (2017-08-20)
 
 _(**CAUTION**: version 1.2.8 has a [critical bug](https://github.com/onury/jasmine-console-reporter/issues/5). To avoid it, do NOT set `colors` option to `2` (ANSI colors). Or better update to v2+ if you're using Node.js version 4 or newer.)_
-+ Updated Jasmine to latest version.
++ Updated `jasmine` and `chalk` to latest versions.
 + Project clean-up.
 
 
