@@ -7,12 +7,13 @@ module.exports = (function () {
     'use strict';
 
     // Own modules
-    var Timer = require('./lib/timer'),
-        Activity = require('./lib/activity'),
-        utils = require('./lib/utils');
+    const Timer = require('./lib/timer');
+    const Activity = require('./lib/activity');
+    const utils = require('./lib/utils');
 
     // Dep modules
-    var chalk = require('chalk');
+    const chalk = require('chalk');
+    const ansiStyle = require('ansi-styles');
 
     // ---------------------------
     //  UTILITY METHODS
@@ -43,7 +44,7 @@ module.exports = (function () {
             listStyle: 'indent'
         }, options);
 
-        var report = {
+        const report = {
             listAll: options.verbosity >= 4, // also list disabled specs
             list: options.verbosity >= 3,
             pendingSpecs: options.verbosity >= 2,
@@ -51,60 +52,59 @@ module.exports = (function () {
             none: options.verbosity <= 0
         };
 
-        var listStyle = {
+        const listStyle = {
             flat: options.listStyle === 'flat',
             indent: options.listStyle === 'indent'
         };
 
-        var printer = options.print || log,
-            timer = new Timer(),
-            activity;
-        if (options.activity) {
-            activity = new Activity(null, log);
-        }
+        const printer = options.print || log;
+        let timer = new Timer();
+        let activity = options.activity
+            ?  new Activity(null, log)
+            : null;
 
-        var _failedSpecs = [],
-            _pendingSpecs = [],
-            _failedSuites = [],
-            stats = {
-                failures: 0,
-                suites: {
-                    total: 0,
-                    disabled: 0,
-                    failed: 0
-                },
-                specs: {
-                    defined: 0,
-                    total: 0,
-                    failed: 0,
-                    passed: 0,
-                    pending: 0,
-                    disabled: 0
-                },
-                expects: {
-                    total: 0,
-                    failed: 0,
-                    passed: 0
-                }
+        const failedSpecList = [];
+        const pendingSpecList = [];
+        const failedSuiteList = [];
+        const stats = {
+            failures: 0,
+            suites: {
+                total: 0,
+                disabled: 0,
+                failed: 0
             },
-            // Keeping track of suite (describe) nest levels.
-            _depth = -1,
-            // Just keeping a flag to determine whether an extra new line is
-            // needed when there is a remaining spec after a nested suite is
-            // finished.
-            _suiteDone = false,
-            _indentChar = ' ',
-            _indentUnit = 3;
+            specs: {
+                defined: 0,
+                total: 0,
+                failed: 0,
+                passed: 0,
+                pending: 0,
+                disabled: 0
+            },
+            expects: {
+                total: 0,
+                failed: 0,
+                passed: 0
+            }
+        };
+        // Keeping track of suite (describe) nest levels.
+        let depth = -1;
+        // Just keeping a flag to determine whether an extra new line is
+        // needed when there is a remaining spec after a nested suite is
+        // finished.
+        let isSuiteDone = false;
+        const INDENT_CHAR = ' ';
+        const INDENT_UNIT = 3;
 
         // ---------------------------
         //  HELPER METHODS
         // ---------------------------
 
-        function fnStyle(color) {
+        function styleFactory(color) {
             return function (str) {
                 switch (options.colors) {
-                    case 2:
-                        return chalk.styles[color].open + str + chalk.styles[color].close;
+                    case 2: // ANSI colors
+                        return ansiStyle[color].open + str + ansiStyle[color].close;
                     case 1:
                         return chalk[color](str);
                     default:
@@ -115,17 +115,17 @@ module.exports = (function () {
 
         // ansi styles
         var style = {
-            green: fnStyle('green'),
-            red: fnStyle('red'),
-            yellow: fnStyle('yellow'),
-            // blue: fnStyle('blue'),
-            cyan: fnStyle('cyan'),
-            white: fnStyle('white'),
-            gray: fnStyle('gray'),
-            underline: fnStyle('underline')
+            green: styleFactory('green'),
+            red: styleFactory('red'),
+            yellow: styleFactory('yellow'),
+            // blue: styleFactory('blue'),
+            cyan: styleFactory('cyan'),
+            white: styleFactory('white'),
+            gray: styleFactory('gray'),
+            underline: styleFactory('underline')
         };
 
-        var print = {
+        const print = {
             str: function () {
                 printer.apply(printer, arguments);
             },
@@ -147,21 +147,21 @@ module.exports = (function () {
             // },
             suite: function (suite) {
                 if (!report.list) return;
-                _depth = _depth || 0;
-                var ind = listStyle.indent
-                        ? utils.repeat(_indentChar, _depth * _indentUnit)
-                        : '',
-                    title = style.cyan(stats.suites.total + ') ' + suite.description);
+                depth = depth || 0;
+                const ind = listStyle.indent
+                    ? utils.repeat(INDENT_CHAR, depth * INDENT_UNIT)
+                    : '';
+                const title = style.cyan(stats.suites.total + ') ' + suite.description);
                 print.line(ind + title);
             },
             spec: function (spec) {
                 // console.log('spec', spec.description, spec.status);
                 if (!report.list) return;
-                _depth = _depth || 0;
-                var title = '',
-                    ind = listStyle.indent
-                        ? utils.repeat(_indentChar, (_depth + 1) * _indentUnit)
-                        : '';
+                depth = depth || 0;
+                let title = '';
+                const ind = listStyle.indent
+                    ? utils.repeat(INDENT_CHAR, (depth + 1) * INDENT_UNIT)
+                    : '';
 
                 switch (spec.status) {
                     case 'pending':
@@ -201,7 +201,7 @@ module.exports = (function () {
             clearLine: function (num) {
                 num = typeof num !== 'number' ? 1 : num;
                 num = num < 1 ? 1 : num;
-                var i;
+                let i;
                 for (i = 0; i < num; i++) {
                     process.stdout.clearLine(0);
                     process.stdout.moveCursor(0, -1);
@@ -215,9 +215,9 @@ module.exports = (function () {
 
         function specFailureDetails(spec, num) {
             print.line(style.red(num + ') '));
-            var title = spec.fullName.replace(spec.description, ': ' + spec.description);
+            const title = spec.fullName.replace(spec.description, ': ' + spec.description);
             print.str(style.cyan(title));
-            var i, failedExpectation, errInfo;
+            let i, failedExpectation, errInfo;
             for (i = 0; i < spec.failedExpectations.length; i++) {
                 failedExpectation = spec.failedExpectations[i];
                 if (failedExpectation.stack) {
@@ -226,50 +226,50 @@ module.exports = (function () {
                     errInfo = 'Error: ' + (failedExpectation.message || 'Unknown Error');
                     errInfo = style.red(errInfo);
                 }
-                print.line(utils.indent(errInfo, _indentUnit));
+                print.line(utils.indent(errInfo, INDENT_UNIT));
             }
             print.newLine();
         }
 
         function specPendingDetails(spec, num) {
             print.line(style.yellow(num + ') '));
-            var title = spec.fullName.replace(spec.description, ': ' + spec.description);
+            const title = spec.fullName.replace(spec.description, ': ' + spec.description);
             print.str(style.cyan(title));
-            var pendingReason = spec.pendingReason
-                    ? style.yellow('Reason: ' + spec.pendingReason)
-                    : style.gray('(No pending reason)');
-            print.line(utils.indent(pendingReason, _indentUnit));
+            const pendingReason = spec.pendingReason
+                ? style.yellow('Reason: ' + spec.pendingReason)
+                : style.gray('(No pending reason)');
+            print.line(utils.indent(pendingReason, INDENT_UNIT));
             print.newLine();
         }
 
         function suiteFailureDetails(suite) {
-            var i, failedExpectation, stack;
+            let i, failedExpectation, stack;
             for (i = 0; i < suite.failedExpectations.length; i++) {
                 failedExpectation = suite.failedExpectations[i];
                 print.line(style.red('>> An error was thrown in an afterAll'));
                 stack = utils.reStack(failedExpectation.stack, options.cleanStack, style);
-                print.line(utils.indent(stack, _indentUnit));
+                print.line(utils.indent(stack, INDENT_UNIT));
             }
             print.newLine(2);
         }
 
         function finalReport() {
-            var i,
-                seconds = timer.elapsed();
+            let i;
+            const seconds = timer.elapsed();
 
-            if (_failedSpecs.length > 0) {
+            if (failedSpecList.length > 0) {
                 print.line(style.red(style.underline('Failed Specs')) + style.red(':'));
                 print.newLine();
-                for (i = 0; i < _failedSpecs.length; i++) {
-                    specFailureDetails(_failedSpecs[i], i + 1);
+                for (i = 0; i < failedSpecList.length; i++) {
+                    specFailureDetails(failedSpecList[i], i + 1);
                 }
             }
 
-            if (report.pendingSpecs && _pendingSpecs.length > 0) {
+            if (report.pendingSpecs && pendingSpecList.length > 0) {
                 print.line(style.yellow(style.underline('Pending Specs')) + style.yellow(':'));
                 print.newLine();
-                for (i = 0; i < _pendingSpecs.length; i++) {
-                    specPendingDetails(_pendingSpecs[i], i + 1);
+                for (i = 0; i < pendingSpecList.length; i++) {
+                    specPendingDetails(pendingSpecList[i], i + 1);
                 }
             }
 
@@ -281,15 +281,15 @@ module.exports = (function () {
                 print.newLine();
 
                 if (stats.specs.total > 0) {
-                    var executedSuites = stats.suites.total - stats.suites.disabled;
+                    const executedSuites = stats.suites.total - stats.suites.disabled;
                     print.line('Suites:  ' + style.white(executedSuites) + ' of ' + stats.suites.total);
                     if (stats.suites.disabled) {
                         print.str(style.yellow(' (' + stats.suites.disabled + ' disabled)'));
                     }
 
-                    var executedSpecs = stats.specs.total - (stats.specs.pending + stats.specs.disabled);
+                    const executedSpecs = stats.specs.total - (stats.specs.pending + stats.specs.disabled);
                     print.line('Specs:   ' + style.white(executedSpecs) + ' of ' + stats.specs.defined);
-                    var specsInfo = [];
+                    const specsInfo = [];
                     if (stats.specs.pending) {
                         specsInfo.push(stats.specs.pending + ' pending');
                     }
@@ -302,8 +302,8 @@ module.exports = (function () {
                     }
 
                     print.line('Expects: ' + style.white(stats.expects.total));
-                    var fc = stats.expects.failed,
-                        f = ' (' + fc + ' ' + utils.plural('failure', fc) + ')';
+                    const fc = stats.expects.failed;
+                    let f = ' (' + fc + ' ' + utils.plural('failure', fc) + ')';
                     if (fc > 0) {
                         f = style.red(f);
                     }
@@ -319,8 +319,8 @@ module.exports = (function () {
                 print.newLine();
             }
 
-            for (i = 0; i < _failedSuites.length; i++) {
-                suiteFailureDetails(_failedSuites[i]);
+            for (i = 0; i < failedSuiteList.length; i++) {
+                suiteFailureDetails(failedSuiteList[i]);
             }
         }
 
@@ -346,20 +346,20 @@ module.exports = (function () {
         };
 
         this.suiteStarted = function (suite) {
-            _depth++;
+            depth++;
 
-            var isFirstSuite = !stats.suites.total;
+            const isFirstSuite = !stats.suites.total;
             if (!isFirstSuite && report.list) {
                 print.newLine();
             }
             stats.suites.total++;
 
             print.suite(suite);
-            _suiteDone = false;
+            isSuiteDone = false;
         };
 
         this.suiteDone = function (suite) {
-            var disabled = suite.status === 'disabled';
+            const disabled = suite.status === 'disabled';
 
             if (disabled) {
                 stats.suites.disabled++;
@@ -370,39 +370,35 @@ module.exports = (function () {
                 // }
             }
 
-            _depth--;
+            depth--;
 
-            var failed = suite.failedExpectations || [];
+            const failed = suite.failedExpectations || [];
             if (failed.length > 0) {
-                _failedSuites.push(suite);
+                failedSuiteList.push(suite);
                 stats.suites.failed++;
                 stats.failures++;
             }
-            _suiteDone = true;
+            isSuiteDone = true;
         };
 
         this.specStarted = function (spec) {
             if (report.list) {
-                var nl = _suiteDone ? 2 : 1;
-                print.newLine(nl);
+                print.newLine(isSuiteDone ? 2 : 1);
             }
 
             // show the activity animation and current spec to be executed, if
             // enabled.
             if (options.activity && activity) {
-                var ind = report.list && listStyle.indent
-                        ? utils.repeat(_indentChar, (_depth + 1) * _indentUnit)
-                        : '',
-                    title = ind + '* ' + style.gray(spec.description);
-                activity.start(title);
+                const ind = report.list && listStyle.indent
+                    ? utils.repeat(INDENT_CHAR, (depth + 1) * INDENT_UNIT)
+                    : '';
+                activity.start(ind + '* ' + style.gray(spec.description));
             }
         };
 
         this.specDone = function (spec) {
 
-            if (options.activity && activity) {
-                activity.stop();
-            }
+            if (options.activity && activity) activity.stop();
 
             stats.specs.total++;
             stats.expects.failed += spec.failedExpectations.length;
@@ -412,7 +408,7 @@ module.exports = (function () {
             switch (spec.status) {
                 case 'pending':
                     stats.specs.pending++;
-                    _pendingSpecs.push(spec);
+                    pendingSpecList.push(spec);
                     break;
                 // this is new in Jasmine 2.3.x
                 case 'disabled':
@@ -421,7 +417,7 @@ module.exports = (function () {
                 case 'failed':
                     stats.failures++;
                     stats.specs.failed++;
-                    _failedSpecs.push(spec);
+                    failedSpecList.push(spec);
                     break;
                 case 'passed':
                     stats.specs.passed++;
@@ -438,9 +434,8 @@ module.exports = (function () {
             print.end();
             print.newLine();
             finalReport();
-            if (activity) {
-                activity = null;
-            }
+            if (activity) activity = null;
+            if (timer) timer = null;
         };
 
     }
