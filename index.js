@@ -399,6 +399,7 @@ module.exports = (function () {
         };
 
         this.specDone = function (spec) {
+
             if (options.activity && activity) {
                 activity.stop();
             }
@@ -433,7 +434,7 @@ module.exports = (function () {
             print.spec(spec);
         };
 
-        this.jasmineDone = function () {
+        this.jasmineDone = function () { // (summary)
             print.end();
             print.newLine();
             finalReport();
