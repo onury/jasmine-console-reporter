@@ -2,58 +2,58 @@
 
 ### Releases:
 
-#### **v2.0.0** (2017-08-20)
+**v2.0.0** (2017-08-20)
 
 - **Breaking Change**: Due to [`chalk` dependency](https://github.com/chalk/chalk/releases/tag/v2.0.0) upgrade, the reporter now requires Node.js v4 or newer.
 - Fixed an issue where the reporter would crash when `colors` option is set to `2` (ANSI colors). Fixes [issue #5](https://github.com/onury/jasmine-console-reporter/issues/5).
 - Extensive code revision.
 
-#### **v1.2.8** (2017-08-20)
+**v1.2.8** (2017-08-20)
 
 _(**CAUTION**: version 1.2.8 has a [critical bug](https://github.com/onury/jasmine-console-reporter/issues/5). To avoid it, do NOT set `colors` option to `2` (ANSI colors). Or better update to v2+ if you're using Node.js version 4 or newer.)_
 + Updated `jasmine` and `chalk` to latest versions.
 + Project clean-up.
 
 
-#### **v1.2.7** (2016-08-21)
+**v1.2.7** (2016-08-21)
 
 - `cleanStack` option would render the first line as the error message, not respecting messages with `\n` (new-line) in them. Fixed.
 - Updated dev-dependencies.
 
-#### **v1.2.6** (2016-05-09)
+**v1.2.6** (2016-05-09)
 
 - Failed specs that don't have an error stack, would not output a warning message. Fixed.
 - Updated dependencies to their latest versions.
 
-#### **v1.2.4** (2016-03-18)
+**v1.2.4** (2016-03-18)
 
 - Improved `colors` option to support ANSI escape codes. (PR [#1](https://github.com/onury/jasmine-console-reporter/pull/1) by [@msrose](https://github.com/msrose))
 
-#### **v1.2.2** (2016-02-27)
+**v1.2.2** (2016-02-27)
 
 - Added grunt, jasmine tests, etc...
 - Moved helper classes and utils to separate modules.
 
-#### **v1.2.0** (2016-02-26)
+**v1.2.0** (2016-02-26)
 
 - Moved the reporter to its own repo.
 - Code revisions and clean-up.
 
-#### **v1.1.3** (2015-07-05)
+**v1.1.3** (2015-07-05)
 
 - Expanded `verbosity` levels (0 to 4). Setting to `3` will not report disabled specs anymore while listing others. Set to `4` (default) for the most verbose report.
 - Updated dependencies to their latest versions.
 
-#### **v1.1.0** (2015-05-01)
+**v1.1.0** (2015-05-01)
 
 - Revised dependencies.
 - Code revisions and clean-up.
 
-#### **v1.0.1** (2015-04-27)
+**v1.0.1** (2015-04-27)
 
 - Changed the default value of `activity` option to `false`. This should not be enabled if your tests log extra data to console. Fixed activity output.
 
-#### **v1.0.0** (2015-04-21)
+**v1.0.0** (2015-04-21)
 
 - Progressive console output. Each spec result is now output at real-time as it's executed. This effectively helps tracking unhandled errors.
 - Fixed mis-handled _nested_ suites (describe blocks). Each spec result and nested suite is now correctly output in relation to its parent test siute.
