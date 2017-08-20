@@ -2,14 +2,24 @@
 
 const Jasmine = require('jasmine');
 const JasmineConsoleReporter = require('../index.js');
-const config = {
-    reporter: require('./config/reporter.json'),
-    jasmine: require('./config/jasmine.json')
-};
+const jasmineConfig = require('./config/jasmine.config.json');
 
+// setup Jasmine
 const jasmine = new Jasmine();
-jasmine.loadConfig(config.jasmine);
+jasmine.loadConfig(jasmineConfig);
 jasmine.jasmine.DEFAULT_TIMEOUT_INTERVAL = 20000;
+
+// setup reporter
+const reporterConfigFile = process.argv[2] || './config/reporter.config-1.json';
+const reporterConfig = require(reporterConfigFile);
+const reporter = new JasmineConsoleReporter(reporterConfig);
 jasmine.env.clearReporters();
-jasmine.addReporter(new JasmineConsoleReporter(config.reporter));
+jasmine.addReporter(reporter);
+
+// run
+console.log('');
+console.log('--------------------------------------------------');
+console.log('DEVELOPMENT TEST:', reporterConfigFile);
+console.log('--------------------------------------------------');
+console.log('');
 jasmine.execute();
