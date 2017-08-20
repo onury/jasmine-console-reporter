@@ -2,9 +2,9 @@
 
 [![npm](http://img.shields.io/npm/v/jasmine-console-reporter.svg)](https://www.npmjs.com/package/jasmine-console-reporter)
 [![release](https://img.shields.io/github/release/onury/jasmine-console-reporter.svg)](https://github.com/onury/jasmine-console-reporter)
+[![license](http://img.shields.io/npm/l/jasmine-console-reporter.svg)](https://github.com/onury/jasmine-console-reporter/blob/master/LICENSE)
 [![downloads](http://img.shields.io/npm/dm/jasmine-console-reporter.svg)](https://www.npmjs.com/package/jasmine-console-reporter)
 [![dependencies](https://david-dm.org/onury/jasmine-console-reporter.svg)](https://david-dm.org/onury/jasmine-console-reporter)
-[![license](http://img.shields.io/npm/l/jasmine-console-reporter.svg)](https://github.com/onury/jasmine-console-reporter/blob/master/LICENSE)
 [![maintained](https://img.shields.io/maintenance/yes/2017.svg)](https://github.com/onury/jasmine-console-reporter/graphs/commit-activity)  
 
 > © 2017, Onur Yıldırım ([@onury](https://github.com/onury)). MIT License.
