@@ -1,5 +1,5 @@
 {
-    "colors": 1,
+    "colors": false,
     "cleanStack": 1,
     "verbosity": 4,
     "listStyle": "indent",
