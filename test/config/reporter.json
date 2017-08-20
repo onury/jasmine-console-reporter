@@ -3,5 +3,5 @@
     "cleanStack": 1,
     "verbosity": 4,
     "listStyle": "indent",
-    "activity": false
+    "activity": true
 }
