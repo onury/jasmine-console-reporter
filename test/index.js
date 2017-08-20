@@ -22,4 +22,6 @@ console.log('--------------------------------------------------');
 console.log('DEVELOPMENT TEST:', reporterConfigFile);
 console.log('--------------------------------------------------');
 console.log('');
+console.log('config:', JSON.stringify(reporterConfig, null, 2));
+console.log('');
 jasmine.execute();
