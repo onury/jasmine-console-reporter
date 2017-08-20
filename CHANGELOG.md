@@ -80,19 +80,19 @@ _(**CAUTION**: version 1.2.8 has a [critical bug](https://github.com/onury/jasmi
 - Added new option: `cleanStack`.
 - Code revisions and clean-up.
 
-**0.6.3** (2015-03-03)
+**v0.6.3** (2015-03-03)
 - Fixes for `null` stack trace & peer jasmine-core. (PR by [@fiznool](https://github.com/fiznool))
 
-**0.6.2** (2015-03-01)
+**v0.6.2** (2015-03-01)
 - Improved reporter output.
 - Code clean-up.
 
-**0.6.0** (2015-02-12)
+**v0.6.0** (2015-02-12)
 - Cleaner error stacks. Filtered out lines with jasmine-core path.
 - Better reporter console output.
 
-**0.5.1** (2015-02-07)
+**v0.5.1** (2015-02-07)
 - Fixed timer (zero elapsed time) issue.
 
-**0.5.0** (2015-02-07)
+**v0.5.0** (2015-02-07)
 - Initial release.
