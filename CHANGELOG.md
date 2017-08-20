@@ -2,9 +2,9 @@
 
 ### Releases:
 
-#### **v2.0.0** (2017-08-20)
+#### **v2.0.1** (2017-08-20)
 
-- **Breaking Change**: Due to [`chalk` dependency](https://github.com/chalk/chalk/releases/tag/v2.0.0) upgrade, the reporter now requires Node.js v4 or newer.
+- **Breaking Change**: Due to [`chalk` dependency](https://github.com/chalk/chalk/releases/tag/v2.0.1) upgrade, the reporter now requires Node.js v4 or newer.
 - Fixed an issue where the reporter would crash when `colors` option is set to `2` (ANSI colors). Fixes [issue #5](https://github.com/onury/jasmine-console-reporter/issues/5).
 - Extensive code revision.
 
