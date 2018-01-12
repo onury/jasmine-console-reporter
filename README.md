@@ -5,9 +5,9 @@
 [![license](http://img.shields.io/npm/l/jasmine-console-reporter.svg)](https://github.com/onury/jasmine-console-reporter/blob/master/LICENSE)
 [![downloads](http://img.shields.io/npm/dm/jasmine-console-reporter.svg)](https://www.npmjs.com/package/jasmine-console-reporter)
 [![dependencies](https://david-dm.org/onury/jasmine-console-reporter.svg)](https://david-dm.org/onury/jasmine-console-reporter)
-[![maintained](https://img.shields.io/maintenance/yes/2017.svg)](https://github.com/onury/jasmine-console-reporter/graphs/commit-activity)  
+[![maintained](https://img.shields.io/maintenance/yes/2018.svg)](https://github.com/onury/jasmine-console-reporter/graphs/commit-activity)  
 
-> © 2017, Onur Yıldırım ([@onury](https://github.com/onury)). MIT License.
+> © 2018, Onur Yıldırım ([@onury](https://github.com/onury)). MIT License.
 
 Console Reporter for Jasmine. Outputs detailed test results to the console, with beautiful layout and colors. This is the default reporter of [grunt-jasmine-nodejs][grunt-jn].
 
