@@ -3,5 +3,7 @@
     "cleanStack": 0,
     "verbosity": 1,
     "listStyle": "flat",
-    "activity": false
+    "activity": false,
+    "emoji": false,
+    "beep": false
 }

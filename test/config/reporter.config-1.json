@@ -3,5 +3,7 @@
     "cleanStack": 1,
     "verbosity": 4,
     "listStyle": "indent",
-    "activity": true
+    "activity": true,
+    "emoji": false,
+    "beep": true
 }

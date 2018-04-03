@@ -3,5 +3,11 @@
     "cleanStack": 3,
     "verbosity": 2,
     "listStyle": "flat",
-    "activity": false
+    "activity": false,
+    "emoji": {
+        "passedStatus": "punch",
+        "failedStatus": "thumbsdown",
+        "incompleteStatus": "broken_heart"
+    },
+    "beep": false
 }

@@ -1,7 +1,9 @@
 {
     "colors": 2,
-    "cleanStack": 2,
+    "cleanStack": 3,
     "verbosity": 3,
     "listStyle": "indent",
-    "activity": false
+    "activity": true,
+    "emoji": true,
+    "beep": true
 }
