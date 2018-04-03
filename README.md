@@ -16,7 +16,7 @@ Example screen:
 
 <p align="center">
     <a href="https://github.com/onury/jasmine-console-reporter">
-        <img scr="https://raw.github.com/onury/jasmine-console-reporter/master/screenshots/jcr-screen.jpg" width="100%" alt="JCR Screen" />
+        <img src="https://raw.github.com/onury/jasmine-console-reporter/master/screenshots/jcr-screen.jpg" width="100%" alt="JCR Screen" />
     </a>
 </p>
 
@@ -24,7 +24,7 @@ Overall summary outputs:
 
 <p align="center">
     <a href="https://github.com/onury/jasmine-console-reporter">
-        <img scr="https://raw.github.com/onury/jasmine-console-reporter/master/screenshots/jcr-summary.jpg" width="100%" alt="JCR Summaries" />
+        <img src="https://raw.github.com/onury/jasmine-console-reporter/master/screenshots/jcr-summary.jpg" width="100%" alt="JCR Summaries" />
     </a>
 </p>
 
