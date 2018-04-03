@@ -11,6 +11,9 @@
     "test:all": "npm run test:1 && npm run test:2 && npm run test:3 && npm run test:4",
     "test": "npm run test:all --force"
   },
+  "engines": {
+    "node": ">=6"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/onury/jasmine-console-reporter.git"
@@ -33,11 +36,18 @@
     "url": "https://github.com/onury/jasmine-console-reporter/issues"
   },
   "homepage": "https://github.com/onury/jasmine-console-reporter#readme",
+  "reveal": true,
   "dependencies": {
-    "ansi-styles": "^3.2.0",
-    "chalk": "^2.1.0"
+    "ansi-styles": "^3.2.1",
+    "chalk": "^2.3.2",
+    "ci-info": "^1.1.3",
+    "node-emoji": "^1.8.1",
+    "ora": "^2.0.0"
   },
   "devDependencies": {
-    "jasmine": "^2.7.0"
+    "jasmine": "^3.1.0"
+  },
+  "peerDependencies": {
+    "jasmine": ">=3.0.0"
   }
 }
