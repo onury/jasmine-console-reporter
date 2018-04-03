@@ -10,7 +10,8 @@
 > © 2018, Onur Yıldırım ([@onury](https://github.com/onury)). MIT License.
 
 Progressive Console Reporter for Jasmine. (for Jasmine v3+)  
-Outputs detailed test results to the console, with beautiful layout and colors.  _(This is also the default reporter of [grunt-jasmine-nodejs][grunt-jn].)_
+Outputs detailed test results to the console, with beautiful layout and colors.  
+_(This is also the default reporter of [grunt-jasmine-nodejs][grunt-jn].)_
 
 Example screen:
 
@@ -59,7 +60,7 @@ const reporter = new JasmineConsoleReporter({
 | <h4>**`cleanStack`**</h4>`Number\|Boolean` | Default: `1`. Specifies the filter level for the error stacks. Possible integer values: 0 to 3. Set to `1` (or `true`) to only filter out lines with jasmine-core path from stacks. Set to `2` to filter out all `node_modules` paths. Set to `3` to also filter out lines with no file path in it.            |
 | <h4>**`verbosity`**</h4>`Number\|Boolean` | Default: `4`. Specifies the verbosity level for the reporter output. Possible integer values: 0 to 4. When a `Boolean` value is passed, `true` defaults to `4` and `false` defaults to `0`. Level 0: reports errors only. Level 1: also displays a summary. Level 2: also reports pending specs. Level 3: additionally displays all suites and specs as a list, except disabled and excluded specs. Level 4: lists all. |
 | <h4>**`listStyle`**</h4>`String` | Default: `"indent"`. Indicates the style of suites/specs list output. Possible values: `"flat"` or `"indent"`. Setting this to `"indent"` provides a better view especially when using nested (describe) suites. This option is only effective when verbosity level is set to `3`, `4` or `true`.            |
-| <h4>**`activity`**</h4>`Boolean|String` | Default: `false`. Specifies whether to enable the activity indicator animation that outputs the current spec that is being executed. Set to a string value to set/change the [spinner style](https://github.com/sindresorhus/cli-spinners/blob/master/spinners.json).|
+| <h4>**`activity`**</h4>`Boolean\|String` | Default: `false`. Specifies whether to enable the activity indicator animation that outputs the current spec that is being executed. Set to a string value to set/change the [spinner style](https://github.com/sindresorhus/cli-spinners/blob/master/spinners.json).|
 | <h4>**`emoji`**</h4>`Boolean\|Object` | Default: `false`. Whether to output some emojis within the report, for a little fun. To customize emojis, you can set an object. _Note that emojis will be auto-disabled in CI environments._ |
 | <h4>**`beep`**</h4>`Boolean` | Default: `true`. Whether to play system beep when tests finish with status "failed". _Note that beep will be auto-disabled in CI and non-TTY environments._ |
 
