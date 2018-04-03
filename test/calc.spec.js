@@ -28,9 +28,9 @@ const Calculator = require('./calc');
         });
         it('should subtract numbers', function () {
             var result = calculator.subtract(a, b);
-            expect(result).toEqual(-8);
+            expect(result).toEqual(8);
             // this is another custom matcher implemented within our helper.
-            expect(result).toBeNegative();
+            expect(result).toBePositive();
             pending();
         });
         // it('should divide numbers', function () {
