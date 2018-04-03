@@ -1,11 +1,11 @@
 # jasmine-console-reporter
 
-[![npm](http://img.shields.io/npm/v/jasmine-console-reporter.svg)](https://www.npmjs.com/package/jasmine-console-reporter)
-[![release](https://img.shields.io/github/release/onury/jasmine-console-reporter.svg)](https://github.com/onury/jasmine-console-reporter)
-[![license](http://img.shields.io/npm/l/jasmine-console-reporter.svg)](https://github.com/onury/jasmine-console-reporter/blob/master/LICENSE)
-[![downloads](http://img.shields.io/npm/dm/jasmine-console-reporter.svg)](https://www.npmjs.com/package/jasmine-console-reporter)
-[![dependencies](https://david-dm.org/onury/jasmine-console-reporter.svg)](https://david-dm.org/onury/jasmine-console-reporter)
-[![maintained](https://img.shields.io/maintenance/yes/2018.svg)](https://github.com/onury/jasmine-console-reporter/graphs/commit-activity)  
+[![npm](http://img.shields.io/npm/v/jasmine-console-reporter.svg?style=flat-square)](https://www.npmjs.com/package/jasmine-console-reporter)
+[![release](https://img.shields.io/github/release/onury/jasmine-console-reporter.svg?style=flat-square)](https://github.com/onury/jasmine-console-reporter)
+[![license](http://img.shields.io/npm/l/jasmine-console-reporter.svg?style=flat-square)](https://github.com/onury/jasmine-console-reporter/blob/master/LICENSE)
+[![downloads](http://img.shields.io/npm/dm/jasmine-console-reporter.svg?style=flat-square)](https://www.npmjs.com/package/jasmine-console-reporter)
+[![dependencies](https://david-dm.org/onury/jasmine-console-reporter.svg?style=flat-square)](https://david-dm.org/onury/jasmine-console-reporter)
+[![maintained](https://img.shields.io/maintenance/yes/2018.svg?style=flat-square)](https://github.com/onury/jasmine-console-reporter/graphs/commit-activity)  
 
 > © 2018, Onur Yıldırım ([@onury](https://github.com/onury)). MIT License.
 
@@ -34,7 +34,7 @@ Overall summary outputs:
 ```shell
 npm i jasmine-console-reporter --save-dev
 ```
-_JCR v3+ requires peer dependency Jasmine v3+ and works on Node.js v6+._
+_JCR v3+ requires peer dependency Jasmine v3+ and works on Node.js v6+. See [compatibility table](#compatibility-table)._
 
 ## Usage
 
