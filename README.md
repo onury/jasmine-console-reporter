@@ -11,7 +11,6 @@
 
 Progressive Console Reporter for Jasmine. (for Jasmine v3+)  
 Outputs detailed test results to the console, with beautiful layout and colors.  
-_(This is also the default reporter of [grunt-jasmine-nodejs][grunt-jn].)_
 
 Example screen:
 
