@@ -9,18 +9,31 @@
 
 > © 2018, Onur Yıldırım ([@onury](https://github.com/onury)). MIT License.
 
-Console Reporter for Jasmine. Outputs detailed test results to the console, with beautiful layout and colors. This is the default reporter of [grunt-jasmine-nodejs][grunt-jn].
+Progressive Console Reporter for Jasmine. (for Jasmine v3+)  
+Outputs detailed test results to the console, with beautiful layout and colors.  _(This is also the default reporter of [grunt-jasmine-nodejs][grunt-jn].)_
 
-Example output:
+Example screen:
 
-![Example Screenshot](https://raw.github.com/onury/jasmine-console-reporter/master/screenshots/verbose-report.jpg)
+<p align="center">
+    <a href="https://github.com/onury/jasmine-console-reporter">
+        <img scr="https://raw.github.com/onury/jasmine-console-reporter/master/screenshots/jcr-screen.jpg" width="100%" alt="JCR Screen" />
+    </a>
+</p>
+
+Overall summary outputs:
+
+<p align="center">
+    <a href="https://github.com/onury/jasmine-console-reporter">
+        <img scr="https://raw.github.com/onury/jasmine-console-reporter/master/screenshots/jcr-summary.jpg" width="100%" alt="JCR Summaries" />
+    </a>
+</p>
 
 ## Installation
 
 ```shell
-npm install jasmine-console-reporter --save-dev
+npm i jasmine-console-reporter --save-dev
 ```
-_Jasmine Console Reporter version 2+ requires Node.js v4 or newer. For older, you can install `jasmine-console-reporter@1.2.7`_
+_JCR v3+ requires peer dependency Jasmine v3+ and works on Node.js v6+._
 
 ## Usage
 
@@ -31,7 +44,9 @@ const reporter = new JasmineConsoleReporter({
     cleanStack: 1,       // (0|false)|(1|true)|2|3
     verbosity: 4,        // (0|false)|1|2|(3|true)|4
     listStyle: 'indent', // "flat"|"indent"
-    activity: false
+    activity: false,     // boolean or string ("dots"|"star"|"flip"|"bouncingBar"|...)
+    emoji: true,
+    beep: true
 });
 // pass the initialized reporter to whichever task or host...
 ```
@@ -42,9 +57,11 @@ const reporter = new JasmineConsoleReporter({
 | -------- | ----------- |
 | <h4>**`colors`**</h4>`Number\|Boolean` | Default: `1`. Specifies whether the output should have colored text. Possible integer values: 0 to 2. Set to `1` (or `true`) to enable colors. Set to `2` to use the [ANSI escape codes](https://www.npmjs.com/package/chalk#chalkstyles). Option `2` can be useful if, for example, you're running your tests from a sub-process, and the colors aren't showing up.            |
 | <h4>**`cleanStack`**</h4>`Number\|Boolean` | Default: `1`. Specifies the filter level for the error stacks. Possible integer values: 0 to 3. Set to `1` (or `true`) to only filter out lines with jasmine-core path from stacks. Set to `2` to filter out all `node_modules` paths. Set to `3` to also filter out lines with no file path in it.            |
-| <h4>**`verbosity`**</h4>`Number\|Boolean` | Default: `4`. Specifies the verbosity level for the reporter output. Possible integer values: 0 to 4. When a `Boolean` value is passed, `true` defaults to `4` and `false` defaults to `0`. Level 0: reports errors only. Level 1: also displays a summary. Level 2: also reports pending specs. Level 3: additionally displays all suites and specs as a list, except disabled specs. Level 4: also lists disabled specs. (_alias: `verbose`_) |
+| <h4>**`verbosity`**</h4>`Number\|Boolean` | Default: `4`. Specifies the verbosity level for the reporter output. Possible integer values: 0 to 4. When a `Boolean` value is passed, `true` defaults to `4` and `false` defaults to `0`. Level 0: reports errors only. Level 1: also displays a summary. Level 2: also reports pending specs. Level 3: additionally displays all suites and specs as a list, except disabled and excluded specs. Level 4: lists all. |
 | <h4>**`listStyle`**</h4>`String` | Default: `"indent"`. Indicates the style of suites/specs list output. Possible values: `"flat"` or `"indent"`. Setting this to `"indent"` provides a better view especially when using nested (describe) suites. This option is only effective when verbosity level is set to `3`, `4` or `true`.            |
-| <h4>**`activity`**</h4>`Boolean` | Default: `false`. Specifies whether to enable the activity indicator animation that outputs the current spec that is being executed. If your tests log extra data to console, this option should be disabled or they might be overwritten. |
+| <h4>**`activity`**</h4>`Boolean|String` | Default: `false`. Specifies whether to enable the activity indicator animation that outputs the current spec that is being executed. Set to a string value to set/change the [spinner style](https://github.com/sindresorhus/cli-spinners/blob/master/spinners.json).|
+| <h4>**`emoji`**</h4>`Boolean\|Object` | Default: `false`. Whether to output some emojis within the report, for a little fun. To customize emojis, you can set an object. _Note that emojis will be auto-disabled in CI environments._ |
+| <h4>**`beep`**</h4>`Boolean` | Default: `true`. Whether to play system beep when tests finish with status "failed". _Note that beep will be auto-disabled in CI and non-TTY environments._ |
 
 ### Full Example with Jasmine (Node.js)
 
@@ -71,7 +88,9 @@ const reporter = new JasmineConsoleReporter({
     cleanStack: 1,       // (0|false)|(1|true)|2|3
     verbosity: 4,        // (0|false)|1|2|(3|true)|4
     listStyle: 'indent', // "flat"|"indent"
-    activity: false
+    activity: true,
+    emoji: true,         // boolean or emoji-map object
+    beep: true
 });
 
 // initialize and execute
@@ -84,9 +103,17 @@ jasmine.execute();
 
 See [CHANGELOG.md][changelog].
 
+### Compatibility Table
+
+| Jasmine Console Reporter | Node           | Jasmine   |
+| ------------------------ | -------------- | --------- | 
+| v3.x                     | v6 and newer   | v3.x      |
+| v2.x                     | v4 and newer   | v2.x      |
+| v1.2.7                   | below v4       | v2.x      |
+
 ## License
 
-See [MIT][license].
+[MIT][license].
 
 
 [changelog]:https://github.com/onury/jasmine-console-reporter/blob/master/CHANGELOG.md
