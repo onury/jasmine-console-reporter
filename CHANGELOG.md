@@ -3,10 +3,11 @@
 All notable changes to this project will be documented in this file. The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org).
 
-## [next](https://github.com/onury/jasmine-console-reporter/compare/v3.0.0...master) (TBD)
+## [3.0.2](https://github.com/onury/jasmine-console-reporter/compare/v3.0.0...v3.0.2) (2018-05-17)
 
 ### Changed
-- Randomness and random seed displayed if running in random order and `verbosity` is `1` or above.
+- Randomness and random seed displayed if running in random order and `verbosity` is `1` or above. [PR #9](https://github.com/onury/jasmine-console-reporter/pull/9) by [@steverice](https://github.com/steverice).
+- Updated dependencies to latest versions.
 
 ## [3.0.0](https://github.com/onury/jasmine-console-reporter/compare/v2.0.1...v3.0.0) (2018-04-03)
 > _This major version is re-written in ES2015. See breaking changes below._
@@ -22,7 +23,7 @@ and this project adheres to [Semantic Versioning](http://semver.org).
 
 ### Changed
 - **BREAKING**: Requires Node.js v6 or newer.
-- Improved exception stack parsing. 
+- Improved exception stack parsing.
 - Better activity spinner.
 
 ### Fixed
@@ -108,7 +109,7 @@ and this project adheres to [Semantic Versioning](http://semver.org).
 - New option: `activity`. See documentation.
 
 ### Changed
-- `cleanStack` option now also accepts a `Number` (integer) to determine the filter level. 
+- `cleanStack` option now also accepts a `Number` (integer) to determine the filter level.
 `verbosity` option now also accepts a `Number` (integer) to determine the verbosity level.
 - Updated dependencies to their latest versions.
 
