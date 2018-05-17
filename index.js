@@ -196,9 +196,9 @@ class JasmineConsoleReporter {
         this.print.str('Executing ' + summary.totalSpecsDefined + ' defined specs...');
 
         const isRandom = summary.order && summary.order.random;
-        if (this.report.listAll && isRandom) {
+        if (this.report.stats && isRandom) {
             this.print.newLine();
-            this.print.str(this.style.gray('Running in random order...')); // (seed: ' + summary.order.seed + ')'));
+            this.print.str(this.style.gray('Running in random order... (seed: ' + summary.order.seed + ')'));
         }
         this.print.newLine();
 
