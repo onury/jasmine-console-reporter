@@ -3,6 +3,11 @@
   "version": "3.0.2",
   "description": "Console Reporter for Jasmine. Outputs detailed test results to the console, with beautiful layout and colors. This is the default reporter of grunt-jasmine-nodejs.",
   "main": "index.js",
+  "files": [
+    "index.js",
+    "lib/",
+    "LICENSE"
+  ],
   "scripts": {
     "test:1": "node test ./config/reporter.config-1.json",
     "test:2": "node test ./config/reporter.config-2.json",
