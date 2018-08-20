@@ -3,11 +3,27 @@
 All notable changes to this project will be documented in this file. The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org).
 
+## [3.1.0](https://github.com/onury/jasmine-console-reporter/compare/v3.0.2...v3.1.0) (2018-08-21)
+
+### Added
+- Execution elapsed time for each spec. [#11](https://github.com/onury/jasmine-console-reporter/issues/11)
+- New option: `timeUnit`  (`String`, default: `"ms"`) The time unit to be used to measure spec execution. `"ms"` for milliseconds, `"ns"` for milliseconds including hi-res nanoseconds remainder, `"s"` for seconds including milliseconds remainder.
+- New option: `timeThreshold`  (`Object|Number`, default: `{ ok: 500, warn: 1000, ouch: 3000 }`) the expected maximum time(s) (in milliseconds) for any spec to complete its execution. If threshold is exceeded, elapsed time for that spec will be accented in the output. This is only effective if `colors` option is enabled.
+- `verbosity` option now also accepts an object, in order to toggle each output section individually. [#11](https://github.com/onury/jasmine-console-reporter/issues/11)
+
+### Changed
+- Updated dependencies to latest versions.
+
+### Fixed
+- An issue where some options (such as `colors`) would not pick up default values when omitted. Fixes [#10](https://github.com/onury/jasmine-console-reporter/issues/10).
+
+
 ## [3.0.2](https://github.com/onury/jasmine-console-reporter/compare/v3.0.0...v3.0.2) (2018-05-17)
 
 ### Changed
 - Randomness and random seed displayed if running in random order and `verbosity` is `1` or above. [PR #9](https://github.com/onury/jasmine-console-reporter/pull/9) by [@steverice](https://github.com/steverice).
 - Updated dependencies to latest versions.
+
 
 ## [3.0.0](https://github.com/onury/jasmine-console-reporter/compare/v2.0.1...v3.0.0) (2018-04-03)
 > _This major version is re-written in ES2015. See breaking changes below._
@@ -17,8 +33,8 @@ and this project adheres to [Semantic Versioning](http://semver.org).
 - Additional information is displayed, if running in *random* order and `verbosity` is set to `4`.
 - Overall status (and reason if status is `incomplete`) within report summary.
 - Support for non-interactive output terminals. (This allows piping output to a file.)
-- New option: `emoji` 👊 (boolean, default: `false`). _Note: emojis will be auto-disabled in CI environments._
-- New option: `beep` (boolean, default: `false`). _Note: beep will be auto-disabled in CI and non-TTY environments._
+- New option: `emoji` 👊 (`boolean`, default: `false`). _Note: emojis will be auto-disabled in CI environments._
+- New option: `beep` (`boolean`, default: `false`). _Note: beep will be auto-disabled in CI and non-TTY environments._
 - Activity spinner styles. Instead of setting to `true`, set `activity` option to a string value to set the style of the spinner. e.g. `"dots"` (default) or `"bouncingBar"`. See all possible values [here](https://github.com/sindresorhus/cli-spinners/blob/master/spinners.json).
 
 ### Changed
@@ -29,6 +45,7 @@ and this project adheres to [Semantic Versioning](http://semver.org).
 ### Fixed
 - An issue where exception message is not printed before the stack. Fixes [#7](https://github.com/onury/jasmine-console-reporter/issues/7) & [#8](https://github.com/onury/jasmine-console-reporter/issues/8).
 
+
 ## [2.0.1](https://github.com/onury/jasmine-console-reporter/compare/v1.2.8...v2.0.1) (2017-08-20)
 
 ### Changed
@@ -37,6 +54,7 @@ and this project adheres to [Semantic Versioning](http://semver.org).
 
 ### Fixed
 - An issue where the reporter would crash when `colors` option is set to `2` (ANSI colors). Fixes [issue #5](https://github.com/onury/jasmine-console-reporter/issues/5).
+
 
 ## [1.2.8](https://github.com/onury/jasmine-console-reporter/compare/v1.2.7...v1.2.8) (2017-08-20)
 
@@ -55,6 +73,7 @@ and this project adheres to [Semantic Versioning](http://semver.org).
 ### Changed
 - Updated dev-dependencies.
 
+
 ## [1.2.6](https://github.com/onury/jasmine-console-reporter/compare/v1.2.4...v1.2.6) (2016-05-09)
 
 ### Fixed
@@ -63,10 +82,12 @@ and this project adheres to [Semantic Versioning](http://semver.org).
 ### Changed
 - Updated dependencies to their latest versions.
 
+
 ## [1.2.4](https://github.com/onury/jasmine-console-reporter/compare/v1.2.2...v1.2.4) (2016-03-18)
 
 ### Added
 - Support for ANSI escape codes, for `colors` option. (PR [#1](https://github.com/onury/jasmine-console-reporter/pull/1) by [@msrose](https://github.com/msrose))
+
 
 ## [1.2.2](https://github.com/onury/jasmine-console-reporter/compare/v1.2.0...v1.2.2) (2016-02-27)
 
@@ -76,11 +97,13 @@ and this project adheres to [Semantic Versioning](http://semver.org).
 ### Changed
 - Moved helper classes and utils to separate modules.
 
+
 ## [1.2.0](https://github.com/onury/jasmine-console-reporter/compare/v1.1.3...v1.2.0) (2016-02-26)
 
 ### Changed
 - Moved the reporter to its own repo.
 - Code revisions and clean-up.
+
 
 ## [1.1.3](https://github.com/onury/jasmine-console-reporter/compare/v1.1.0...v1.1.3) (2015-07-05)
 
@@ -88,16 +111,19 @@ and this project adheres to [Semantic Versioning](http://semver.org).
 - Expanded `verbosity` levels (0 to 4). Setting to `3` will not report disabled specs anymore while listing others. Set to `4` (default) for the most verbose report.
 - Updated dependencies to their latest versions.
 
+
 ## [1.1.0](https://github.com/onury/jasmine-console-reporter/compare/v1.0.1...v1.1.0) (2015-05-01)
 
 ### Changed
 - Updated dependencies.
 - Minor code revisions and clean-up.
 
+
 ## [1.0.1](https://github.com/onury/jasmine-console-reporter/compare/v1.0.0...v1.0.1) (2015-04-27)
 
 ### Changed
 - The default value of `activity` option is now `false`. This should not be enabled if your tests log extra data to console. Fixed activity output.
+
 
 ## [1.0.0](https://github.com/onury/jasmine-console-reporter/compare/v0.7.2...v1.0.0) (2015-04-21)
 
