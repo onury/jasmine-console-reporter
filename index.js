@@ -2,6 +2,7 @@
 
 // dep modules
 const ci = require('ci-info');
+
 // own modules
 const StreamPrinter = require('./lib/StreamPrinter');
 const StyleFactory = require('./lib/StyleFactory');
@@ -19,37 +20,22 @@ const INDENT_UNIT = 3;
 class JasmineConsoleReporter {
 
     constructor(options = {}) {
-        options.verbosity = utils.optionBoolToNum(options.verbosity, 4, 0);
-        options.cleanStack = utils.optionBoolToNum(options.cleanStack, 1, 0);
-        options.colors = utils.optionBoolToNum(options.colors, 1, 0);
+        this.options = utils.getOptions(options);
 
-        this.options = Object.assign({
-            colors: 1,              // 0 to 2
-            cleanStack: 1,          // 0 to 3
-            verbosity: 4,           // 0 to 4
-            activity: false,        // bool or string ("dots")
-            listStyle: 'indent',    // "indent"|"flat"
-            emoji: true,
-            beep: true
-        }, options);
-
-        // disable emojis on CI platforms
-        if (ci.isCI) this.options.emoji = false;
+        // disable emojis & beep on CI platforms
+        if (ci.isCI) {
+            this.options.emoji = false;
+            this.options.beep = false;
+        }
 
         const pOpts = typeof options.activity === 'string'
             ? { spinner: options.activity }
             : undefined;
         this.print = new StreamPrinter(pOpts);
         this.style = StyleFactory.create(this.options);
-        this.stats = new TestStats();
+        this.stats = new TestStats(this.options);
 
-        this.report = {
-            listAll: options.verbosity >= 4, // also list disabled specs and some additional info
-            list: options.verbosity >= 3,
-            pendingSpecs: options.verbosity >= 2,
-            stats: options.verbosity >= 1,
-            none: options.verbosity <= 0
-        };
+        this.verbosity = this.options.verbosity;
 
         // Keeping track of suite (describe) nest levels.
         this._depth = -1;
@@ -106,7 +92,7 @@ class JasmineConsoleReporter {
             });
         }
 
-        if (this.report.pendingSpecs && this.stats.pendingSpecList.length > 0) {
+        if (this.verbosity.pending && this.stats.pendingSpecList.length > 0) {
             this.print.line(this.style.white(this.style.underline('Pending Specs')) + this.style.white(':'));
             this.print.newLine();
             this.stats.pendingSpecList.forEach((spec, index) => {
@@ -114,10 +100,7 @@ class JasmineConsoleReporter {
             });
         }
 
-        // verbosity >= 2
-        // if (report.pendingSpecs) { }
-
-        if (this.report.stats) {
+        if (this.verbosity.summary) {
             this.print.line(this.style.white(this.style.underline('Summary') + ':'));
             this.print.newLine();
 
@@ -196,13 +179,13 @@ class JasmineConsoleReporter {
         this.print.str('Executing ' + summary.totalSpecsDefined + ' defined specs...');
 
         const isRandom = summary.order && summary.order.random;
-        if (this.report.stats && isRandom) {
+        if (this.verbosity.summary && isRandom) {
             this.print.newLine();
             this.print.str(this.style.gray('Running in random order... (seed: ' + summary.order.seed + ')'));
         }
         this.print.newLine();
 
-        if (this.report.list) {
+        if (this.verbosity.specs) {
             this.print.line(this.style.white(this.style.underline('Test Suites & Specs')) + this.style.white(':'));
             this.print.newLine();
         }
@@ -213,11 +196,11 @@ class JasmineConsoleReporter {
         this.stats.addSuite(suite);
 
         const isFirstSuite = this.stats.suites.total === 1;
-        if (!isFirstSuite && this.report.list) {
+        if (!isFirstSuite && this.verbosity.specs) {
             this.print.newLine();
         }
 
-        if (this.report.list) {
+        if (this.verbosity.specs) {
             this._depth = this._depth || 0;
             const ind = this.options.listStyle === 'indent'
                 ? utils.repeat(INDENT_CHAR, this._depth * INDENT_UNIT)
@@ -237,14 +220,14 @@ class JasmineConsoleReporter {
 
     specStarted(spec) {
         this.stats.addSpec(spec);
-        if (this.report.list) {
+        if (this.verbosity.specs) {
             this.print.newLine(this._isSuiteDone ? 2 : 1);
         }
 
         // show the activity animation and current spec to be executed, if
         // enabled.
         if (this.options.activity) {
-            const ind = this.report.list && this.options.listStyle === 'indent'
+            const ind = this.verbosity.specs && this.options.listStyle === 'indent'
                 ? utils.repeat(INDENT_CHAR, (this._depth + 1) * INDENT_UNIT)
                 : '';
             this.print.spin(ind + this.style.gray(spec.description));
@@ -255,12 +238,13 @@ class JasmineConsoleReporter {
         this.stats.updateSpec(spec);
         if (this.options.activity) this.print.spinStop();
 
-        if (this.report.list) {
+        if (this.verbosity.specs) {
             this._depth = this._depth || 0;
             let title = '';
             const ind = this.options.listStyle === 'indent'
                 ? utils.repeat(INDENT_CHAR, (this._depth + 1) * INDENT_UNIT)
                 : '';
+            let timeStyle;
 
             switch (spec.status) {
                 case 'pending':
@@ -268,8 +252,8 @@ class JasmineConsoleReporter {
                     break;
                 case 'disabled':
                 case 'excluded':
-                    // we don't print disableds and exludeds if verbosity < 4
-                    if (!this.report.listAll) {
+                    // we don't print disableds and exludeds
+                    if (!this.verbosity.disabled) {
                         // clear the new line printed on spec-start
                         // this.print.clearLine();
                         this.print.clearLine(2);
@@ -281,11 +265,15 @@ class JasmineConsoleReporter {
                 case 'failed': {
                     const fc = spec.failedExpectations.length;
                     const f = ' (' + fc + ' ' + utils.plural('failure', fc) + ')';
-                    title = this.style.red(this.style.symbol('error') + ' ' + spec.description + f);
+                    timeStyle = this.style.time(spec._time.num);
+                    title = this.style.red(this.style.symbol('error') + ' ' + spec.description + f)
+                        + timeStyle(' (' + spec._time.str + ')');
                     break;
                 }
                 case 'passed':
-                    title = this.style.green(this.style.symbol('success') + ' ' + spec.description);
+                    timeStyle = this.style.time(spec._time.num);
+                    title = this.style.green(this.style.symbol('success') + ' ' + spec.description)
+                        + timeStyle(' (' + spec._time.str + ')');
                     break;
                 default:
                     // unknown status
@@ -301,7 +289,7 @@ class JasmineConsoleReporter {
 
         this.print.newLine();
         if (this.stats.specs.defined > 0) {
-            if (this.report.list) this.print.newLine();
+            if (this.verbosity.specs) this.print.newLine();
             this.print.str(this.style.gray('>> Done!'));
             this.print.newLine(2);
         }
