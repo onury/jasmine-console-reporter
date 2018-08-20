@@ -1,0 +1,4 @@
+{
+    "timeUnit": "ns",
+    "timeThreshold": { "ouch": 500 }
+}

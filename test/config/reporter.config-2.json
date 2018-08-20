@@ -1,7 +1,12 @@
 {
     "colors": 2,
     "cleanStack": 3,
-    "verbosity": 3,
+    "verbosity": {
+        "pending": true,
+        "disabled": false,
+        "specs": false,
+        "summary": true
+    },
     "listStyle": "indent",
     "activity": true,
     "emoji": true,
