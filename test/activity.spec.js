@@ -10,7 +10,7 @@
             setTimeout(() => {
                 expect(1).toBe(1);
                 done();
-            }, 1000);
+            }, 400);
         });
 
     });
