@@ -16,7 +16,7 @@ Example screen:
 
 <p align="center">
     <a href="https://github.com/onury/jasmine-console-reporter">
-        <img src="https://raw.github.com/onury/jasmine-console-reporter/master/screenshots/jcr-screen.jpg" width="100%" alt="JCR Screen" />
+        <img src="https://raw.github.com/onury/jasmine-console-reporter/master/screenshots/jcr-3-screen.jpg" width="100%" alt="JCR Screen" />
     </a>
 </p>
 
