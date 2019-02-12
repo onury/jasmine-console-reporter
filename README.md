@@ -5,9 +5,9 @@
 [![license](http://img.shields.io/npm/l/jasmine-console-reporter.svg?style=flat-square)](https://github.com/onury/jasmine-console-reporter/blob/master/LICENSE)
 [![downloads](http://img.shields.io/npm/dm/jasmine-console-reporter.svg?style=flat-square)](https://www.npmjs.com/package/jasmine-console-reporter)
 [![dependencies](https://david-dm.org/onury/jasmine-console-reporter.svg?style=flat-square)](https://david-dm.org/onury/jasmine-console-reporter)
-[![maintained](https://img.shields.io/maintenance/yes/2018.svg?style=flat-square)](https://github.com/onury/jasmine-console-reporter/graphs/commit-activity)  
+[![maintained](https://img.shields.io/maintenance/yes/2019.svg?style=flat-square)](https://github.com/onury/jasmine-console-reporter/graphs/commit-activity)  
 
-> © 2018, Onur Yıldırım ([@onury](https://github.com/onury)). MIT License.
+> © 2019, Onur Yıldırım ([@onury](https://github.com/onury)). MIT License.
 
 Progressive Console Reporter for Jasmine. (for Jasmine v3+)  
 Outputs detailed test results to the console, with beautiful layout and colors.  
