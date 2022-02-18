@@ -49,7 +49,7 @@
     "chalk": "^2.4.1",
     "ci-info": "^1.4.0",
     "node-emoji": "^1.8.1",
-    "ora": "^3.0.0",
+    "ora": "^5.4.1",
     "perfy": "^1.1.5"
   },
   "devDependencies": {
